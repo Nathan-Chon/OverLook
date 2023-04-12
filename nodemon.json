@@ -1,0 +1,13 @@
+{
+  "watch": [
+    ".env",
+    "server/"
+  ],
+  "ignore": [
+    "client/"
+  ],
+  "events": {
+    "start": "node -e 'console.clear()'",
+    "restart": "node -e 'console.clear()'"
+  }
+}

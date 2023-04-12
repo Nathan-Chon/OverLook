@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "stylelint-config-recommended",
+    "stylelint-config-standard"
+  ],
+  "rules": {
+    "alpha-value-notation": null,
+    "color-function-notation": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "keyframes-name-pattern": null,
+    "no-empty-source": null,
+    "rule-empty-line-before": null,
+    "selector-class-pattern": null
+  }
+}

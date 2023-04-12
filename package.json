@@ -1,0 +1,23 @@
+{
+  "name": "final-project-server",
+  "version": "2.0.0",
+  "private": true,
+  "description": "A full stack JavaScript solo project.",
+  "type": "module",
+  "scripts": {
+    "start": "NODE_ENV=production node server/server.js",
+    "build": "npm run build --prefix client",
+    "db:import": "npm run db:import --prefix database",
+    "preinstall": "npm install --prefix client && npm install --prefix server",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "eslint": "^8.26.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "markuplint": "^2.11.0"
+  }
+}

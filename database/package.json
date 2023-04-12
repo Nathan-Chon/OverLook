@@ -1,0 +1,7 @@
+{
+  "name": "final-project-template-database",
+  "version": "1.0.0",
+  "scripts": {
+    "db:import": "sh import.sh"
+  }
+}
