@@ -2,7 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import errorMiddleware from './lib/error-middleware.js';
 import pg from 'pg';
-import ClientError from './lib/client-error.js';
+// import ClientError from './lib/client-error.js';
 
 // eslint-disable-next-line no-unused-vars -- Remove when used
 const db = new pg.Pool({
@@ -38,6 +38,20 @@ app.post('/api/requests', async (req, res, next) => {
     const result = await db.query(sql, params);
     const [todo] = result.rows;
     res.status(201).json(todo);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.get('/api/users', async (req, res, next) => {
+  try {
+    const sql = `
+      select "name", "userId"
+        from "users"
+        where "managerAccount" = false
+    `;
+    const result = await db.query(sql);
+    res.json(result.rows);
   } catch (err) {
     next(err);
   }
