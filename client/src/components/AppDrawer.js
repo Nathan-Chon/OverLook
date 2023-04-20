@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaBars } from 'react-icons/fa';
 import { FiArrowLeft } from "react-icons/fi";
 import './AppDrawer.css'
+import { Link } from 'react-router-dom';
 
 export default function AppDrawer({ onClick }) {
   const [isActive, setIsActive] = useState(false);
@@ -24,10 +25,11 @@ function DrawerContents({ onClick }) {
   return (
     <div className="drawer-content">
       <FiArrowLeft onClick={onClick} size={40} className="arrow-left"></FiArrowLeft>
-      <h2 onClick={onClick} className="pkmn">Charmander</h2>
-      <h2 onClick={onClick} className="pkmn">Bulbasaur</h2>
-      <h2 onClick={onClick} className="pkmn">Squirtle</h2>
-      <h2 onClick={onClick} className="pkmn">Pikachu</h2>
+      <Link to="/" className='items' style={{ textDecoration: 'none' }}>
+        <h2 onClick={onClick} className="pkmn">Home</h2>
+      </Link>
+      <h2 onClick={onClick} className="pkmn">Edit a Request</h2>
+      <h2 onClick={onClick} className="pkmn">Data Entries</h2>
       <h2 onClick={onClick} className="pkmn">Log Out</h2>
     </div>
   )

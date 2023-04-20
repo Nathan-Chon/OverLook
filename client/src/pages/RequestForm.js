@@ -1,7 +1,9 @@
 import {useState, useEffect } from 'react';
 import { FiArrowLeft } from "react-icons/fi";
+import { Link } from 'react-router-dom';
 
 export default function RequestForm() {
+  // const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [question, setQuestion] = useState('');
@@ -35,7 +37,9 @@ export default function RequestForm() {
       <div className="row min-vh-100 pb-5 justify-content-center align-items-center">
         <div className="col col-md-8 bg-light rounded w-100 position-relative">
           <h1 className="text-center my-5">Form Creation</h1>
-          <FiArrowLeft size={40} className="position-absolute top-0 start-0"></FiArrowLeft>
+          <Link to='/'>
+            <FiArrowLeft size={40} className="position-absolute top-0 start-0 mt-1 ml-1"></FiArrowLeft>
+          </Link>
           <form method="post" onSubmit={handleSubmit}>
             <div className="container">
               <div className="row align-items-start">

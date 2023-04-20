@@ -15,6 +15,10 @@
 
 .pkmn {
   cursor: pointer;
+  margin-top: 4vw;
+  padding-right: 3vw;
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
 }
 
 .pkmn:hover {
@@ -24,25 +28,15 @@
 
 .drawer-content {
   text-indent: 20px;
-  padding-top: 4vw;
-}
+  text-align: end;
 
-.pkmn-head {
-  padding-bottom: 2vw;
-}
-
-.pokemon {
-  width: 100%;
-  height: 400px;
-  position: absolute;
-  top: 50px;
-  right: 50px;
 }
 
 .arrow-left {
   cursor: pointer;
   margin-left: 300px;
-  margin-top: auto;
+  margin-top: 10px;
+  margin-right:10px;
 }
 
 .button-bars {
@@ -51,4 +45,8 @@
   top: 0;
   bottom: 0;
   left: 1vw;
+}
+
+.items {
+  color: black;
 }

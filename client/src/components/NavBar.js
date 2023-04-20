@@ -1,5 +1,6 @@
 import AppDrawer from './AppDrawer';
 import './NavBar.css'
+import { Outlet } from 'react-router-dom';
 
 export default function NavBar() {
 
@@ -9,6 +10,7 @@ export default function NavBar() {
         <AppDrawer className="px-3"></AppDrawer>
         <h1 className='navbar-brand'>OVERLOOK</h1>
       </nav>
+      <Outlet />
     </div>
   )
 }
