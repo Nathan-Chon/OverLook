@@ -1,30 +1,46 @@
-import { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import RequestForm from "./pages/RequestForm";
+import NavBar from "./components/NavBar";
+// import jwtDecode from 'jwt-decode';
+import { Route, Routes } from 'react-router-dom';
+// import AppContext from './components/AppContext';
+import './App.css'
+// import { useEffect, useState } from 'react';
+import Home from './pages/HomePage';
+
+// const tokenKey = 'react-context-jwt';
 
 function App() {
-  const [serverData, setServerData] = useState("");
 
-  useEffect(() => {
-    async function getServerData() {
-      const resp = await fetch('/api/hello');
-      const data = await resp.json();
+  // const [user, setUser] = useState();
+  // const [isAuthorizing, setIsAuthorizing] = useState(true);
 
-      console.log('Data from server:', data);
+  // useEffect(() => {
+  //   const token = localStorage.getItem(tokenKey);
+  //   const user = token ? jwtDecode(token) : null;
+  //   setUser(user);
+  //   setIsAuthorizing(false);
+  // }, []);
 
-      setServerData(data.message);
-    }
+  // if (isAuthorizing) return null;
 
-    getServerData();
-  }, []);
+  // function handleSignIn(result) {
+  //   const { user, token } = result;
+  //   localStorage.setItem(tokenKey, token);
+  //   setUser(user);
+  // }
 
+  // function handleSignOut() {
+  //   localStorage.removeItem(tokenKey);
+  //   setUser(undefined);
+  // }
+  // const contextValue = { user, handleSignIn, handleSignOut };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>{serverData}</h1>
-      </header>
-    </div>
+      <Routes>
+        <Route path="/" element={<NavBar />}>
+          <Route index element={<Home />} />
+          <Route path="request" element={<RequestForm/>} />
+        </Route>
+      </Routes>
   );
 }
 
