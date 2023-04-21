@@ -28,13 +28,13 @@ app.post('/api/requests', async (req, res, next) => {
     const title = req.body.title;
     const description = req.body.description;
     const question = req.body.question;
-    console.log(req.body);
+    const userId = parseInt(req.body.member);
     const sql = `
-    insert into "requests" ("title", "description", "question")
-      values ($1, $2, $3)
+    insert into "requests" ("title", "description", "question", "userId")
+      values ($1, $2, $3, $4)
       returning *
    `;
-    const params = [title, description, question];
+    const params = [title, description, question, userId];
     const result = await db.query(sql, params);
     const [todo] = result.rows;
     res.status(201).json(todo);
@@ -50,6 +50,19 @@ app.get('/api/users', async (req, res, next) => {
         from "users"
         where "managerAccount" = false
     `;
+    const result = await db.query(sql);
+    res.json(result.rows);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.get('/api/requests', async (req, res, next) => {
+  try {
+    const sql = `
+    select "title", "description", "question"
+      from "requests"
+   `;
     const result = await db.query(sql);
     res.json(result.rows);
   } catch (err) {
