@@ -28,7 +28,7 @@ CREATE TABLE "public"."requests" (
   "question" TEXT NOT NULL,
 	"createdAt"   timestamptz(6) not null default now(),
 	"updatedAt"   timestamptz(6) not null default now(),
-	"userId" serial,
+	"userId" INTEGER NOT NULL,
   primary key ("requestId"),
   foreign key ("userId")
    references "users" ("userId")

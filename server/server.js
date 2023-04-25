@@ -28,13 +28,13 @@ app.post('/api/requests', async (req, res, next) => {
     const title = req.body.title;
     const description = req.body.description;
     const question = req.body.question;
-    console.log(req.body);
+    const userId = parseInt(req.body.member);
     const sql = `
-    insert into "requests" ("title", "description", "question")
-      values ($1, $2, $3)
+    insert into "requests" ("title", "description", "question", "userId")
+      values ($1, $2, $3, $4)
       returning *
    `;
-    const params = [title, description, question];
+    const params = [title, description, question, userId];
     const result = await db.query(sql, params);
     const [todo] = result.rows;
     res.status(201).json(todo);
@@ -51,6 +51,75 @@ app.get('/api/users', async (req, res, next) => {
         where "managerAccount" = false
     `;
     const result = await db.query(sql);
+    res.json(result.rows);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.get('/api/requests', async (req, res, next) => {
+  try {
+    const sql = `
+    select "r"."requestId", "r"."title", "r"."description", "r"."question", "u"."name"
+      from "requests" as "r"
+      join "users" as "u" using ("userId")
+   `;
+    const result = await db.query(sql);
+    res.json(result.rows);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.patch('/api/requests/:requestId', async (req, res, next) => {
+  try {
+    const requestId = Number(req.params.requestId);
+    if (!Number.isInteger(requestId) || requestId < 1) {
+      res.status(400).json({ error: 'todoId must be a positive integer' });
+      return;
+    }
+    const userIdValue = parseInt(req.body.userId);
+    const { title, description, question } = req.body;
+    console.log(req.body);
+    const sql = `
+      update "requests"
+        set "updatedAt" = now(),
+            "title" = $1,
+            "description" = $2,
+            "question" = $3,
+            "userId" = $4
+          where "requestId" = $5
+        returning *
+    `;
+    const params = [title, description, question, userIdValue, requestId];
+    const result = await db.query(sql, params);
+    const [todo] = result.rows;
+    if (!todo) {
+      res.status(404).json({ error: `cannot find todo with todoId ${requestId}` });
+      return;
+    }
+    res.json(todo);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'an unexpected error occurred' });
+  }
+});
+
+app.get('/api/requests/:requestId', async (req, res, next) => {
+  try {
+    const requestId = Number(req.params.requestId);
+    if (!Number.isInteger(requestId) || requestId < 1) {
+      res.status(400).json({ error: 'todoId must be a positive integer' });
+      return;
+    }
+    const sql = `
+    select "r"."requestId", "r"."title", "r"."description", "r"."question", "u"."name", "r"."userId"
+      from "requests" as "r"
+      join "users" as "u" using ("userId")
+      where "requestId" = $1
+   `;
+    const params = [requestId];
+    const result = await db.query(sql, params);
     res.json(result.rows);
   } catch (err) {
     next(err);
