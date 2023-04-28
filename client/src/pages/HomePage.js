@@ -1,22 +1,9 @@
-/* eslint-disable no-unused-vars -- Remove me */
-/* eslint-disable no-undef -- Remove me */
-import { useContext, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
-import AppContext from '../components/AppContext';
 import './HomePage.css';
 import { Link } from 'react-router-dom';
 import { BsPersonFill } from "react-icons/bs";
 import { AiOutlineForm } from "react-icons/ai";
 
 export default function Home() {
-  /* TODO: Grab `user` from `AppContext` */
-  // const { user } = useContext(AppContext);
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (!user) navigate('/sign-in');
-  // }, [user, navigate])
-
   return (
     <div className="container">
       <div className='row w-100 mb-5'></div>

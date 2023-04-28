@@ -1,17 +1,16 @@
 import {useState, useEffect } from 'react';
 import { FiArrowLeft } from "react-icons/fi";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function RequestForm() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [question, setQuestion] = useState('');
-  const [member, setMember] = useState('');
+  const [member, setMember] = useState();
   const [memberData, setMemberData] = useState([]);
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(title, description, question)
     fetch('/api/requests', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -22,6 +21,7 @@ export default function RequestForm() {
         console.log(json);
       })
       .catch(e => console.error(e))
+      navigate('/')
   }
 
   useEffect(()=> {
@@ -45,9 +45,9 @@ export default function RequestForm() {
               <div className="row align-items-start">
                 <div className="mb-3 d-flex flex-column col-md">
                   <label> Send Request to...</label>
-                  <select className="form-control" required defaultValue={'Choose'}>
+                  <select className="form-control" required defaultValue={'Choose'} onChange={e => {setMember(e.target.value)}}>
                     <option value="Choose" disabled hidden>Choose</option>
-                    {memberData.map((info) => <option value={info.userId} key={info.userId} onChange={e => setMember(e.target.value)}>{info.name}</option>)}
+                    {memberData.map((info) => <option value={info.userId} key={info.userId}>{info.name}</option>)}
                   </select>
                 </div>
                 <div className="mb-3 d-flex flex-column col-md rounded">
