@@ -40,7 +40,6 @@ export default function RequestEdit() {
         const [data2] = await res2.json();
         setMemberData(data);
         setRequest(data2);
-        console.log(data2)
         setTitle(data2.title)
         setDescription(data2.description)
         setQuestion(data2.question)

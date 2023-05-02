@@ -127,6 +127,27 @@ app.get('/api/requests/:requestId', async (req, res, next) => {
   }
 });
 
+app.delete('/api/requests/:requestId', async (req, res, next) => {
+  try {
+    const requestId = Number(req.params.requestId);
+    console.log(requestId);
+    if (!Number.isInteger(requestId) || requestId < 1) {
+      throw new ClientError(400, 'requestId must be a positive integer');
+    }
+    const sql = `
+    delete
+      from "requests"
+      where "requestId" = $1
+      returning *
+   `;
+    const params = [requestId];
+    const result = await db.query(sql, params);
+    res.json(result.rows);
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
