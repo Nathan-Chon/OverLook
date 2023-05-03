@@ -2,7 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import errorMiddleware from './lib/error-middleware.js';
 import pg from 'pg';
-// import ClientError from './lib/client-error.js';
+import ClientError from './lib/client-error.js';
 
 // eslint-disable-next-line no-unused-vars -- Remove when used
 const db = new pg.Pool({
@@ -43,6 +43,8 @@ app.post('/api/requests', async (req, res, next) => {
   }
 });
 
+// presentation below
+
 app.get('/api/users', async (req, res, next) => {
   try {
     const sql = `
@@ -71,12 +73,13 @@ app.get('/api/requests', async (req, res, next) => {
   }
 });
 
+// presentation below
+
 app.patch('/api/requests/:requestId', async (req, res, next) => {
   try {
     const requestId = Number(req.params.requestId);
     if (!Number.isInteger(requestId) || requestId < 1) {
-      res.status(400).json({ error: 'todoId must be a positive integer' });
-      return;
+      throw new ClientError(400, 'requestId must be a positive integer');
     }
     const userIdValue = parseInt(req.body.userId);
     const { title, description, question } = req.body;
@@ -95,8 +98,7 @@ app.patch('/api/requests/:requestId', async (req, res, next) => {
     const result = await db.query(sql, params);
     const [todo] = result.rows;
     if (!todo) {
-      res.status(404).json({ error: `cannot find todo with todoId ${requestId}` });
-      return;
+      throw new ClientError(404, `cannot find request with requestId ${requestId}`);
     }
     res.json(todo);
   } catch (err) {
@@ -109,8 +111,7 @@ app.get('/api/requests/:requestId', async (req, res, next) => {
   try {
     const requestId = Number(req.params.requestId);
     if (!Number.isInteger(requestId) || requestId < 1) {
-      res.status(400).json({ error: 'todoId must be a positive integer' });
-      return;
+      throw new ClientError(400, 'requestId must be a positive integer');
     }
     const sql = `
     select "r"."requestId", "r"."title", "r"."description", "r"."question", "u"."name", "r"."userId"
@@ -126,8 +127,25 @@ app.get('/api/requests/:requestId', async (req, res, next) => {
   }
 });
 
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Hello World!' });
+app.delete('/api/requests/:requestId', async (req, res, next) => {
+  try {
+    const requestId = Number(req.params.requestId);
+    console.log(requestId);
+    if (!Number.isInteger(requestId) || requestId < 1) {
+      throw new ClientError(400, 'requestId must be a positive integer');
+    }
+    const sql = `
+    delete
+      from "requests"
+      where "requestId" = $1
+      returning *
+   `;
+    const params = [requestId];
+    const result = await db.query(sql, params);
+    res.json(result.rows);
+  } catch (err) {
+    next(err);
+  }
 });
 
 app.use(errorMiddleware);

@@ -28,7 +28,9 @@ function DrawerContents({ onClick }) {
       <Link to="/" className='items' style={{ textDecoration: 'none' }}>
         <h2 onClick={onClick} className="pkmn">Home</h2>
       </Link>
-      <h2 onClick={onClick} className="pkmn">Edit a Request</h2>
+      <Link to="edit" className='items' style={{ textDecoration: 'none' }}>
+        <h2 onClick={onClick} className="pkmn">Edit a Request</h2>
+      </Link>
       <h2 onClick={onClick} className="pkmn">Data Entries</h2>
       <h2 onClick={onClick} className="pkmn">Log Out</h2>
     </div>
