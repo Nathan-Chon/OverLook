@@ -48,7 +48,7 @@ app.post('/api/requests', async (req, res, next) => {
 app.get('/api/users', async (req, res, next) => {
   try {
     const sql = `
-      select "name", "userId"
+      select "name", "userId", "email", "phoneNumber"
         from "users"
         where "managerAccount" = false
     `;
