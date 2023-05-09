@@ -62,7 +62,7 @@ app.get('/api/users', async (req, res, next) => {
 app.get('/api/requests', async (req, res, next) => {
   try {
     const sql = `
-    select "r"."requestId", "r"."title", "r"."description", "r"."question", "u"."name"
+    select "r"."requestId", "r"."title", "r"."description", "r"."question", "r"."createdAt", "u"."name", "u"."email", "u"."phoneNumber", "u"."userId"
       from "requests" as "r"
       join "users" as "u" using ("userId")
    `;

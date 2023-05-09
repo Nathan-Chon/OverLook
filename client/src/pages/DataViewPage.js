@@ -1,20 +1,14 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
-
-
-const products = [
-  { id: 0, name: "Item name 0", price: 2100 },
-  { id: 1, name: "Item name 1", price: 2101 },
-  { id: 2, name: "Item name 2", price: 2102 },
-  { id: 3, name: "Item name 3", price: 2103 }
-];
-
+import { useParams } from 'react-router-dom';
 
 
 export default function DataViewPage() {
   const [userInfo, setUserInfo] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const { requestId } = useParams();
+  const [requestInfo, setRequestInfo] = useState();
   const columns = [
     {
       dataField: "userId",
@@ -35,7 +29,14 @@ export default function DataViewPage() {
     },
     {
       dataField: "request",
-      text: "Form Response"
+      text: "Form Response",
+      formatter: (cellContent: string, row: IMyColumnDefinition) => {
+          return <button className="btn btn-primary btn-xs" onClick={() => console.log('hi')}>Form URL</button>
+      }
+    },
+    {
+      dataField: "createdAt",
+      text: "Time"
     }
     // {
     //   dataField: "time",
@@ -46,20 +47,29 @@ export default function DataViewPage() {
     //   Text: "Date"
     // }
   ];
+
+
+
   useEffect(()=> {
     setIsLoading(true);
     async function fetchData() {
       try {
-        const res = await fetch('/api/users')
+        const res = await fetch('/api/requests')
+        // const res2 = await fetch(`/api/requests/${requestId}`)
         if (!res.ok) throw new Error(`fetch Error ${res.status}`);
+        // if (!res2.ok) throw new Error(`fetch Error ${res.status}`);
         const data = await res.json();
+        // const [data2] = await res2.json();
         setUserInfo(data);
+        // setRequestInfo(data2);
         console.log(userInfo)
-        console.log(products)
+        console.log(requestInfo)
       } catch (err) {
         console.error(err)
       } finally {
         setIsLoading(false);
+        console.log(userInfo)
+
       }
     }
     fetchData();
