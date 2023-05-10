@@ -1,18 +1,16 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
-import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 export default function DataViewPage() {
   const [userInfo, setUserInfo] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const { requestId } = useParams();
-  const [requestInfo, setRequestInfo] = useState();
   const columns = [
     {
-      dataField: "userId",
-      text: "UserId",
+      dataField: "requestId",
+      text: "RequestId",
     },
     {
       dataField: "name",
@@ -28,10 +26,11 @@ export default function DataViewPage() {
       text: "Email"
     },
     {
-      dataField: "request",
+      dataField: "requestId",
       text: "Form Response",
       formatter: (cellContent: string, row: IMyColumnDefinition) => {
-          return <button className="btn btn-primary btn-xs" onClick={() => console.log('hi')}>Form URL</button>
+        const number = row.requestId;
+        return <Link to={`dataRequest/${number}`}> <button className="btn btn-primary btn-xs">Form URL</button> </Link>
       }
     },
     {
@@ -48,33 +47,26 @@ export default function DataViewPage() {
     // }
   ];
 
-
-
   useEffect(()=> {
     setIsLoading(true);
     async function fetchData() {
       try {
         const res = await fetch('/api/requests')
-        // const res2 = await fetch(`/api/requests/${requestId}`)
         if (!res.ok) throw new Error(`fetch Error ${res.status}`);
-        // if (!res2.ok) throw new Error(`fetch Error ${res.status}`);
         const data = await res.json();
-        // const [data2] = await res2.json();
         setUserInfo(data);
-        // setRequestInfo(data2);
         console.log(userInfo)
-        console.log(requestInfo)
       } catch (err) {
         console.error(err)
       } finally {
         setIsLoading(false);
         console.log(userInfo)
-
       }
     }
     fetchData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
+
   if (isLoading) return <div>Loading...</div>;
   return (
     <div className="container">
@@ -83,7 +75,7 @@ export default function DataViewPage() {
           <div className="App">
             <BootstrapTable
               bootstrap5
-              keyField="userId"
+              keyField="requestId"
               data={userInfo}
               columns={columns}
 

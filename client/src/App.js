@@ -10,6 +10,7 @@ import RequestPage from "./pages/RequestPage";
 // const tokenKey = 'react-context-jwt';
 import RequestEdit from "./pages/RequestEdit";
 import DataViewPage from "./pages/DataViewPage";
+import DataRequestInfo from "./pages/DataRequestInfo";
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
           <Route path="edit" element={<RequestPage/>}/>
           <Route path="edit/requestEdit/:requestId" element={<RequestEdit />} />
           <Route path="dataView" element={<DataViewPage />} />
+          <Route path="dataView/dataRequest/:requestId" element={<DataRequestInfo />} />
         </Route>
       </Routes>
   );
