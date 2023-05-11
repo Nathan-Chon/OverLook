@@ -48,7 +48,7 @@ app.post('/api/requests', async (req, res, next) => {
 app.get('/api/users', async (req, res, next) => {
   try {
     const sql = `
-      select "name", "userId"
+      select "name", "userId", "email", "phoneNumber"
         from "users"
         where "managerAccount" = false
     `;
@@ -62,7 +62,7 @@ app.get('/api/users', async (req, res, next) => {
 app.get('/api/requests', async (req, res, next) => {
   try {
     const sql = `
-    select "r"."requestId", "r"."title", "r"."description", "r"."question", "u"."name"
+    select "r"."requestId", "r"."title", "r"."description", "r"."question", "r"."createdAt", "u"."name", "u"."email", "u"."phoneNumber", "u"."userId"
       from "requests" as "r"
       join "users" as "u" using ("userId")
    `;
@@ -114,7 +114,7 @@ app.get('/api/requests/:requestId', async (req, res, next) => {
       throw new ClientError(400, 'requestId must be a positive integer');
     }
     const sql = `
-    select "r"."requestId", "r"."title", "r"."description", "r"."question", "u"."name", "r"."userId"
+    select "r"."requestId", "r"."title", "r"."description", "r"."question", "u"."name", "r"."userId", "r"."createdAt", "u"."phoneNumber", "u"."email"
       from "requests" as "r"
       join "users" as "u" using ("userId")
       where "requestId" = $1

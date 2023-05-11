@@ -12,7 +12,7 @@ export default function Home() {
           <h2 className='text-center my-5 title'>Request Form</h2>
           <AiOutlineForm className='align-text-center w-100 icon' size={100}></AiOutlineForm>
         </Link>
-        <Link className='col-md bg-light mx-4 sizing rounded' style={{ textDecoration: 'none' }}>
+        <Link to="dataView" className='col-md bg-light mx-4 sizing rounded' style={{ textDecoration: 'none' }}>
           <h2 className='text-center my-5 title'>Members</h2>
           <BsPersonFill className='align-text-center w-100 icon' size={100}></BsPersonFill>
         </Link>
