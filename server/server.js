@@ -114,7 +114,7 @@ app.get('/api/requests/:requestId', async (req, res, next) => {
       throw new ClientError(400, 'requestId must be a positive integer');
     }
     const sql = `
-    select "r"."requestId", "r"."title", "r"."description", "r"."question", "u"."name", "r"."userId"
+    select "r"."requestId", "r"."title", "r"."description", "r"."question", "u"."name", "r"."userId", "r"."createdAt", "u"."phoneNumber", "u"."email"
       from "requests" as "r"
       join "users" as "u" using ("userId")
       where "requestId" = $1

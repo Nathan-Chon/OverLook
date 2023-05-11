@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import { Link } from 'react-router-dom';
-
+import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 
 export default function DataViewPage() {
   const [userInfo, setUserInfo] = useState();
@@ -26,26 +26,33 @@ export default function DataViewPage() {
       text: "Email"
     },
     {
-      dataField: "requestId",
+      dataField: "",
       text: "Form Response",
       formatter: (cellContent: string, row: IMyColumnDefinition) => {
         const number = row.requestId;
-        return <Link to={`dataRequest/${number}`}> <button className="btn btn-primary btn-xs">Form URL</button> </Link>
+        return <Link to={`dataRequest/${number}`}> <p>Form URL</p> </Link>
       }
     },
     {
       dataField: "createdAt",
-      text: "Time"
+      text: "Date",
+      formatter: (cellContent: string, row: IMyColumnDefinition) => {
+        let theDate = cellContent;
+        let date = new Date(Date.parse(theDate))
+        const dated = date.toDateString()
+        return <p>{dated}</p>
+      }
     }
-    // {
-    //   dataField: "time",
-    //   text: "Time"
-    // },
-    // {
-    //   dataField: "date",
-    //   Text: "Date"
-    // }
   ];
+
+  const sortOption = {
+    sortCaret: (order, column) => {
+      if (!order) return (<span><AiOutlineArrowUp /> <AiOutlineArrowDown /> </span>);
+      else if (order === 'asc') return (<AiOutlineArrowUp/>);
+      else if (order === 'desc') return (<AiOutlineArrowDown/>);
+      return null;
+    }
+  };
 
   useEffect(()=> {
     setIsLoading(true);
@@ -55,12 +62,13 @@ export default function DataViewPage() {
         if (!res.ok) throw new Error(`fetch Error ${res.status}`);
         const data = await res.json();
         setUserInfo(data);
-        console.log(userInfo)
       } catch (err) {
         console.error(err)
       } finally {
         setIsLoading(false);
         console.log(userInfo)
+
+
       }
     }
     fetchData();
@@ -72,13 +80,13 @@ export default function DataViewPage() {
     <div className="container">
       <div className="row min-vh-100 pb-5 justify-content-center align-items-center">
         <div className="col col-md-8 bg-light rounded w-100 position-relative">
-          <div className="App">
+          <div className="App text-center">
             <BootstrapTable
               bootstrap5
               keyField="requestId"
               data={userInfo}
               columns={columns}
-
+              sort={sortOption}
             />
           </div>
         </div>
