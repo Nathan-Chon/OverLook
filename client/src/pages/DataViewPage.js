@@ -80,7 +80,7 @@ export default function DataViewPage() {
     <div className="container">
       <div className="row min-vh-100 pb-5 justify-content-center align-items-center">
         <div className="col col-md-8 bg-light rounded w-100 position-relative">
-          <div className="App text-center">
+          <div className="App text-center px-2 pt-3">
             <BootstrapTable
               bootstrap5
               keyField="requestId"
