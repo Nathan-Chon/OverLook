@@ -5,7 +5,7 @@
 ## Why I Built This
 As someone who love to be organized I had the great idea to make something to help manage your employees. I had a difficult time sending tasks out via phone calls and text. It always felt like I would never get a response in a way that satisfied my employer. This application was created for managers to send requests to employees and for them to get an instant response as to how and if the task can be completed in a short amount of time.
 ## Live Demo
-<a href="overlook-fp.azurewebsites.net">Link to deployment hosted by Microsfot Azure</a>
+[Link to deployment hosted by Microsfot Azure](overlook-fp.azurewebsites.net)
 
 ## Preview
 "fill in with gif later" 
