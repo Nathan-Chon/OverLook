@@ -41,7 +41,7 @@ Used React.js, Node.js PostgreSQL, CSS, HTML, Javascript
 1. Install all dependencies with NPM.
 
     ```shell
-    npm install --legacy-peer-deps
+    npm install
     ```
 
 1. Import the database to PostgreSQL.
