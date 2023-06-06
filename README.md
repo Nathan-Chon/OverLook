@@ -3,12 +3,14 @@
 ## A full stack web application for managers who want to keep track of their workers when they are not around.
 
 ## Why I Built This
-In a previous job of mine i had the great idea to make something to help manage your employees. I had a difficult time sending tasks out via phone calls and text. It always felt like I would never get a repsonse in a way that satisfied my employeer. THis applicaiton was created for managers to send requests to employess and for them to get an instant response as to how and if the task can be completed in a short amount of time.
-#
-<a href="">Link to deployment hosted by Microsfot Azure</a>
-#
-## Technologies
+As someone who love to be organized I had the great idea to make something to help manage your employees. I had a difficult time sending tasks out via phone calls and text. It always felt like I would never get a response in a way that satisfied my employer. This application was created for managers to send requests to employees and for them to get an instant response as to how and if the task can be completed in a short amount of time.
+## Live Demo
+<a href="overlook-fp.azurewebsites.net">Link to deployment hosted by Microsfot Azure</a>
 
+## Preview
+"fill in with gif later" 
+
+## Technologies
 Used React.js, Node.js PostgreSQL, CSS, HTML, Javascript
 
 ## Features
@@ -33,7 +35,7 @@ Used React.js, Node.js PostgreSQL, CSS, HTML, Javascript
 1. Clone the repository.
 
     ```shell
-    git clone 
+    git clone https://github.com/Nathan-Chon/OverLook.git
     ```
 
 1. Install all dependencies with NPM.
